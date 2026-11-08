@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="id"><head><meta charset="utf-8">
+<html lang="id" translate="no" class="notranslate"><head><meta name="google" content="notranslate"><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Balap Kuis 3D – Balapan Mobil Edukasi</title>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
@@ -135,7 +135,7 @@ body.ctl .bg{display:none}body.ctl{overflow:auto}
 .cq{flex:1;display:flex;flex-direction:column;gap:8px;text-align:center}.cq .qq{font-size:1.5rem}
 .co{display:grid;grid-template-columns:1fr;gap:10px;margin-top:auto}.co .qopt{font-size:1.25rem;padding:18px 14px;border-radius:16px}.qopt.sel{outline:4px solid #fff}
 
-</style></head><body>
+#cmm{width:100%;height:auto;background:#070816aa;border-radius:12px;margin:2px 0}</style></head><body>
 <div class="bg"><span style="left:5%;animation-delay:0s">🏎️</span><span style="left:25%;animation-delay:3s">🏁</span><span style="left:45%;animation-delay:6s">⚡</span><span style="left:65%;animation-delay:2s">🧠</span><span style="left:85%;animation-delay:8s">🚀</span></div>
 <div id="app"></div>
 <script>
@@ -409,9 +409,9 @@ if(G&&G.hp){const i=G.ps.findIndex(x=>x.lb===p);if(i>=0){if(G.ph=='end')sendEnd(
 else if(m.t=='ans'&&c._p&&G&&G.hp){const i=G.ps.findIndex(x=>x.lb===c._p);if(i>=0&&G.ps[i].qn===m.qn&&Number.isInteger(m.k)&&m.k>=0&&m.k<4)ans(i,m.k)}}
 function pushQ(i){const g=G,p=g.ps[i];if(!p||g.ph=='end')return;if(p.ph=='fin')return send(p,{t:'fin',rk:p.rk,s:p.s,corr:p.corr,wr:p.wr});if(g.ph=='cd')return send(p,{t:'cd'});const q=p.q;
 if(p.ph=='q')send(p,{t:'q',qn:p.qn,q:q.q,o:q.o,img:q.img&&q.img.length<350000?q.img:null,tl:p.tl,tm:S.cfg.t});else send(p,{t:'rev',qn:p.qn,sel:p.sel,a:q.a,ok:p.sel==q.a,msg:p.msg})}
-function pushSt(){const g=G,ord=g.ps.map((_,i)=>i).sort((a,b)=>cmp(g.ps[a],g.ps[b]));g.ps.forEach((p,i)=>{if(p.remote)send(p,{t:'st',pos:ord.indexOf(i)+1,n:g.ps.length,lap:Math.min(S.cfg.lap,Math.floor(Math.max(0,p.sd)/TL)+1),laps:S.cfg.lap,spd:Math.round(p.v*6),bt:p.bt>0,sl:p.sl>0,tl:p.ph=='q'?p.tl:0,ph:p.ph,bn:p.bnT>0?p.bn:''})})}
+function pushSt(){const g=G,ord=g.ps.map((_,i)=>i).sort((a,b)=>cmp(g.ps[a],g.ps[b]));g.ps.forEach((p,i)=>{if(p.remote)send(p,{t:'st',pos:ord.indexOf(i)+1,n:g.ps.length,lap:Math.min(S.cfg.lap,Math.floor(Math.max(0,p.sd)/TL)+1),laps:S.cfg.lap,spd:Math.round(p.v*6),bt:p.bt>0,sl:p.sl>0,tl:p.ph=='q'?p.tl:0,ph:p.ph,bn:p.bnT>0?p.bn:'',i,all:g.ps.map(x=>[x.e,x.c,Math.round(x.sd*10)/10,Math.round(x.v*10)/10])})})}
 function sendEnd(i){const p=G.ps[i];send(p,{t:'end',rank:G.rank.map(x=>({n:x.n,e:x.e,s:x.s,corr:x.corr,fin:x.fin})),me:G.rank.indexOf(p)})}
-function ev(i,t){if(!G||!G.hp)return;const p=G.ps[i];G.ev.push({t:G.t,txt:p.e+' '+p.n+' '+t});if(G.ev.length>20)G.ev.shift();if(/NITRO|SELIP|BOOM|HANCUR|LONCAT|FINIS|PAD/.test(t)){G.evI=i;G.evT=3}}
+function ev(i,t){if(!G||!G.hp)return;const p=G.ps[i];G.ev.push({t:G.t,txt:p.e+' '+p.n+' '+t});if(G.ev.length>20)G.ev.shift()}
 /* kartu di halaman "Atur Balapan" */
 function netCard(){return `<div class=card><b>🎮 Cara Bermain</b><div class=tabs><button class="${S.net?'':'on'}" onclick="setNet(false)">🖥️ Layar dibagi di IFP (2–5)</button><button class="${S.net?'on':''}" onclick="setNet(true)">📱 Mode Kelas: soal di HP siswa</button></div><small>${S.net?'Siswa bergabung lewat HP/laptop memakai kode atau QR. Layar IFP menampilkan balapan bersama (sampai 10 siswa), soal muncul di HP masing-masing.':'Pemain bermain langsung di IFP, layar terbagi sejajar sesuai jumlah pemain.'}</small></div>`}
 function playersCard(){return `<div class=card><div class=tabs><button class="${S.mode=='ind'?'on':''}" onclick="setMode('ind')">🧑 Individu</button><button class="${S.mode=='grp'?'on':''}" onclick="setMode('grp')">👥 Kelompok</button></div>
@@ -441,16 +441,16 @@ function hudHP(ord){const g=G,laps=S.cfg.lap;let h='';ord.forEach((i,k)=>{const 
 h+=`<div class="lr${g.tgt===i?' f':''}" style="--c:${p.c}" onclick="G.focus=G.focus===${i}?null:${i}"><span>${p.fin!=null?'🏁':MEDAL[k]||(k+1)}</span><span>${p.e}</span><span class=ln>${esc(p.n)}</span><span class=lq>L${lp}</span><span>${p.sl>0?'💥':p.bt>0?'⚡':''}</span></div>`});htm('lb',h);mmDraw();
 htm('tk',g.ev.filter(e=>g.t-e.t<6).slice(-3).map(e=>`<div>${esc(e.txt)}</div>`).join(''));
 st('cdm',g.ph=='cd'?(g.cd>3?'SIAP…':Math.ceil(g.cd)+''):g.go>0?'GO!':'',g.ph=='cd'||g.go>0?'cdn on':'cdn')}
-function drawHP(dt,W,H){const e=$('vpm');if(!e)return;const r=e.getBoundingClientRect();if(r.width<4||r.height<4)return;const g=G,ord=g.ps.map((_,i)=>i).sort((a,b)=>cmp(g.ps[a],g.ps[b])),ti=g.focus!=null&&g.ps[g.focus]?g.focus:(g.evT>0&&g.evI!=null?g.evI:ord[0]);g.tgt=ti;
+function drawHP(dt,W,H){const e=$('vpm');if(!e)return;const r=e.getBoundingClientRect();if(r.width<4||r.height<4)return;const g=G,ord=g.ps.map((_,i)=>i).sort((a,b)=>cmp(g.ps[a],g.ps[b]));let ti;if(g.focus!=null&&g.ps[g.focus])ti=g.focus;else{if(g.ct==null||!g.ps[g.ct]||g.fin0)g.ct=ord[0];g.dw=(g.dw||0)-dt;if(ord[0]!==g.ct&&g.dw<=0&&g.ps[ord[0]].sd-g.ps[g.ct].sd>25){g.ct=ord[0];g.dw=10}ti=g.ct}g.tgt=ti;
 if(g.cam=='top'){CM.fov=55;CM.aspect=r.width/r.height;CM.updateProjectionMatrix();CM.position.set(0,230,1);CM.lookAt(0,0,0)}
-else{const p=g.ps[ti],q=CARS[ti].userData.q,c=CARS[ti].position;if(g.ct!==ti){g.ct=ti;g.sw=1.2}if(g.sw>0)g.sw-=dt;const k=1-Math.exp(-dt*(g.sw>0?2.2:6)),bk=8.5+(p.bt>0?1.5:0),nn=Math.hypot(1,q.sl),fx=q.tx/nn,fy=q.sl/nn,fz=q.tz/nn,dx=c.x-fx*bk,dy=q.y+4.2-fy*bk,dz=c.z-fz*bk;
+else{const p=g.ps[ti],q=CARS[ti].userData.q,c=CARS[ti].position;if(g.lt!==ti){g.lt=ti;g.sw=2}if(g.sw>0)g.sw-=dt;const k=1-Math.exp(-dt*(g.sw>0?1.6:5)),bk=8.5+(p.bt>0?1.5:0),nn=Math.hypot(1,q.sl),fx=q.tx/nn,fy=q.sl/nn,fz=q.tz/nn,dx=c.x-fx*bk,dy=q.y+4.2-fy*bk,dz=c.z-fz*bk;
 if(g.cx==null){g.cx=dx;g.cy=dy;g.cz=dz}g.cx+=(dx-g.cx)*k;g.cy+=(dy-g.cy)*k;g.cz+=(dz-g.cz)*k;const tf=62+(p.bt>0?12:0);g.fv=(g.fv||62)+(tf-(g.fv||62))*(1-Math.exp(-dt*4));
 CM.position.set(g.cx,g.cy,g.cz);CM.lookAt(c.x+fx*10,q.y+1.4+fy*10,c.z+fz*10);CM.aspect=r.width/r.height;CM.fov=g.fv;CM.updateProjectionMatrix()}
 const x=r.left,y=H-r.bottom;RD.setViewport(x,y,r.width,r.height);RD.setScissor(x,y,r.width,r.height);CARS.forEach(cr=>cr.userData.tag.visible=true);RD.render(SC,CM)}
 /* ---------- sisi kontroler (HP siswa) ---------- */
 let C={st:'name',name:'',tok:null,me:null,q:null,qn:0,sel:null,h:{},lost:false,pz:false,end:null,tlEnd:0,tm:20};
 function ctlInit(){document.body.classList.add('ctl');try{C.tok=localStorage.getItem('bktok-'+JOIN);C.name=localStorage.getItem('bkname')||''}catch(e){}
-setInterval(ctlTick,150);if(C.tok&&C.name)ctlConnect();else ctlR()}
+setInterval(ctlTick,80);if(C.tok&&C.name)ctlConnect();else ctlR()}
 function ctlJoin(){const v=($('cn')||{}).value;C.name=(v||'').trim().slice(0,14);if(!C.name)return;try{localStorage.setItem('bkname',C.name)}catch(e){}ctlConnect()}
 function ctlConnect(){C.st='conn';ctlR();loadPeer().then(()=>{const pe=new Peer();C.peer=pe;
 pe.on('open',()=>{const c=pe.connect('bk-'+JOIN,{reliable:true});C.conn=c;c.on('open',()=>c.send({t:'join',name:C.name,tok:C.tok}));c.on('data',ctlMsg);c.on('close',ctlLost);c.on('error',ctlLost)});
@@ -467,11 +467,20 @@ else if(m.t=='rev'){C.st='rev';C.rv=m;try{navigator.vibrate&&navigator.vibrate(m
 else if(m.t=='fin'){C.st='fin';C.fin=m}
 else if(m.t=='end'){C.st='end';C.end=m}
 else if(m.t=='pause'){C.pz=m.on;if(!m.on&&C.q)C.tlEnd=performance.now()+(C.h.tl||0)*1000}
-else if(m.t=='st'){C.h=m;if(C.st=='q'&&m.tl)C.tlEnd=performance.now()+m.tl*1000;ctlHud()}
+else if(m.t=='st'){C.h=m;C.hT=performance.now();if(C.st=='q'&&m.tl)C.tlEnd=performance.now()+m.tl*1000;ctlHud()}
 ctlR()}
 function ctlAns(k){if(C.st!='q'||C.lock||C.pz||!C.conn)return;C.lock=true;C.sel=k;try{C.conn.send({t:'ans',qn:C.qn,k})}catch(e){}ctlR()}
 function ctlHud(){const h=C.h,s=(id,t)=>{const e=$(id);if(e&&e.textContent!==t)e.textContent=t};s('cpos',h.pos?MEDAL[h.pos-1]+' '+h.pos+'/'+h.n:'');s('clap',h.lap?'LAP '+h.lap+'/'+h.laps:'');s('cspd',h.spd!=null?h.spd+' km/h':'');s('cst',h.sl?'💥 SELIP':h.bt?'⚡ NITRO':h.bn||'')}
-function ctlTick(){if(C.st!='q'||C.pz)return;const left=Math.max(0,(C.tlEnd-performance.now())/1000),b=$('ctb'),t=$('ctt');if(b)b.style.width=Math.min(100,left/C.tm*100)+'%';if(t)t.textContent='⏱ '+Math.ceil(left)}
+function ctlTick(){ctlMapDraw();if(C.st!='q'||C.pz)return;const left=Math.max(0,(C.tlEnd-performance.now())/1000),b=$('ctb'),t=$('ctt');if(b)b.style.width=Math.min(100,left/C.tm*100)+'%';if(t)t.textContent='⏱ '+Math.ceil(left)}
+let mmB2=null;
+function ctlMap(){return '<canvas id=cmm width=340 height=130></canvas>'}
+function ctlMapDraw(){const c=$('cmm'),h=C.h;if(!c||!h||!h.all)return;const x=c.getContext('2d'),W=c.width,Hh=c.height;x.clearRect(0,0,W,Hh);
+if(!mmB2){let a=1e9,b=-1e9,d=1e9,e=-1e9;PX.forEach((v,i)=>{a=Math.min(a,v);b=Math.max(b,v);d=Math.min(d,PZ[i]);e=Math.max(e,PZ[i])});mmB2={a,b,d,e,s:Math.min((W-24)/(b-a),(Hh-30)/(e-d))}}
+const B=mmB2,X=v=>12+(v-B.a)*B.s+((W-24)-(B.b-B.a)*B.s)/2,Y=v=>18+(v-B.d)*B.s+((Hh-30)-(B.e-B.d)*B.s)/2;
+x.lineWidth=7;x.strokeStyle='#22d3ee88';x.lineJoin='round';x.beginPath();for(let i=0;i<NS;i+=6){i?x.lineTo(X(PX[i]),Y(PZ[i])):x.moveTo(X(PX[i]),Y(PZ[i]))}x.closePath();x.stroke();x.fillStyle='#fff';x.fillRect(X(PX[0])-4,Y(PZ[0])-4,8,8);
+const dt=C.pz?0:Math.min(1.5,(performance.now()-C.hT)/1000),pt=a=>{const sd=a[2]+a[3]*dt,j=Math.floor((Math.max(0,sd)%TL)/DS)%NS;return[X(PX[j]),Y(PZ[j])]};
+h.all.forEach((a,k)=>{if(k===h.i)return;const[px,py]=pt(a);x.fillStyle=a[1];x.strokeStyle='#fff';x.lineWidth=2;x.beginPath();x.arc(px,py,5,0,TAU);x.fill();x.stroke()});
+const me=h.all[h.i];if(me){const[px,py]=pt(me);x.fillStyle=me[1];x.strokeStyle='#fff';x.lineWidth=3;x.beginPath();x.arc(px,py,9,0,TAU);x.fill();x.stroke();x.font='20px "Segoe UI Emoji","Apple Color Emoji",sans-serif';x.textAlign='center';x.textBaseline='bottom';x.fillText('🏎️',px,py-8)}}
 function ctlHdr(){const me=C.me||{e:'🙂',n:C.name};return `<div class=ch><b>${me.e} ${esc(me.n)}</b><span id=cpos></span><span id=clap></span><span id=cst></span></div>`}
 function ctlView(){const me=C.me||{e:'🙂',n:C.name},q=C.q;
 if(C.st=='name')return `<div class=cw><div style="font-size:3.6rem">🏎️</div><h2 style="margin:6px 0">Balap Kuis</h2><p>Kode ruangan: <b style="letter-spacing:.15em;font-size:1.4rem">${JOIN}</b></p><input id=cn maxlength=14 placeholder="Tulis namamu" value="${esc(C.name)}" style="width:100%;padding:14px;border-radius:14px;border:0;font:inherit;font-size:1.2rem;text-align:center"><button class="btn g big" style="margin-top:12px;width:100%" onclick=ctlJoin()>🚀 Gabung</button></div>`;
@@ -480,10 +489,10 @@ if(C.st=='err')return `<div class=cw><div style="font-size:3rem">⚠️</div><p>
 if(C.st=='kick')return `<div class=cw><div style="font-size:3rem">👋</div><p>Kamu dikeluarkan dari ruangan oleh guru.</p><button class=btn onclick="try{localStorage.removeItem('bktok-'+JOIN)}catch(e){}location.search=''">🏠 Keluar</button></div>`;
 if(C.st=='lobby')return `<div class=cw><div style="font-size:5rem;animation:bob 2s infinite">${me.e}</div><h2>${esc(me.n)}</h2><p>✅ Terhubung! Menunggu guru memulai balapan…</p></div>`;
 if(C.st=='cd')return `<div class=cw>${ctlHdr()}<div style="font-size:5rem;animation:bob 1s infinite">🏁</div><h2>Bersiap…</h2><p>Jawab cepat &amp; benar untuk menyalakan NITRO ⚡</p></div>`;
-if(C.st=='fin'){const f=C.fin||{};return `<div class=cw><div style="font-size:4rem">🏁</div><h2>SELESAI! Juara ${f.rk}</h2><p>⭐ ${f.s} • ✅ ${f.corr} benar • ❌ ${f.wr} salah</p><p>Menunggu pemain lain…</p></div>`}
+if(C.st=='fin'){const f=C.fin||{};return `<div class=cw>${ctlHdr()}${ctlMap()}<div style="font-size:4rem">🏁</div><h2>SELESAI! Juara ${f.rk}</h2><p>⭐ ${f.s} • ✅ ${f.corr} benar • ❌ ${f.wr} salah</p><p>Menunggu pemain lain…</p></div>`}
 if(C.st=='end'){const r=C.end;return `<div class=cw><h2>🏆 Hasil Balapan</h2>${r.rank.map((p,k)=>`<div class="rk ${k==r.me?'w':''}"><span>${MEDAL[k]||k+1}</span><span class=av>${p.e}</span>${esc(p.n)}<em>⭐${p.s} ✅${p.corr}</em></div>`).join('')}<p>Menunggu guru memulai lagi…</p></div>`}
 const rv=C.st=='rev'?C.rv:null;
-return `${ctlHdr()}<div class=cq><div class=qb><i id=ctb style="width:${Math.min(100,Math.max(0,(C.tlEnd-performance.now())/1000)/C.tm*100)}%"></i></div><div class=qh><span id=ctt>⏱ ${Math.max(0,Math.ceil((C.tlEnd-performance.now())/1000))}</span><span class=fb>${rv?esc(rv.msg||''):C.lock?'Jawaban terkirim…':'&nbsp;'}</span></div>${q&&q.img?`<img class=qi src="${q.img}">`:''}<div class=qq>${esc(q?q.q:'')}</div>
+return `${ctlHdr()}${ctlMap()}<div class=cq><div class=qb><i id=ctb style="width:${Math.min(100,Math.max(0,(C.tlEnd-performance.now())/1000)/C.tm*100)}%"></i></div><div class=qh><span id=ctt>⏱ ${Math.max(0,Math.ceil((C.tlEnd-performance.now())/1000))}</span><span class=fb>${rv?esc(rv.msg||''):C.lock?'Jawaban terkirim…':'&nbsp;'}</span></div>${q&&q.img?`<img class=qi src="${q.img}">`:''}<div class=qq>${esc(q?q.q:'')}</div>
 <div class=co>${(q?q.o:[]).map((o,k)=>o?`<button class="qopt${rv?(k==rv.a?' ok':k==rv.sel?' no':' dim'):C.sel==k?' sel':''}" style="background:${COL[k]}" onpointerdown="ctlAns(${k})"><b>${L[k]}</b>${esc(o)}</button>`:'').join('')}</div></div>`}
 function ctlR(){let h=ctlView();if(C.lost)h+=`<div class=ov><div class=md style="text-align:center"><h3>📡 Terputus…</h3><p>Menyambung ulang otomatis</p></div></div>`;else if(C.pz&&['q','rev'].includes(C.st))h+=`<div class=ov><div class=md style="text-align:center"><h3>⏸️ Dijeda guru</h3></div></div>`;
 $('app').innerHTML=`<div class=cwrap>${h}</div>`;ctlHud()}
